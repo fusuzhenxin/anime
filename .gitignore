@@ -5,3 +5,6 @@ __pycache__/
 Thumbs.db
 *.bak
 _tmp_bind.json
+.vercel
+.cf-pages-covers
+.wrangler

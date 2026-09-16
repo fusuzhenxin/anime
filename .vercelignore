@@ -1,0 +1,13 @@
+covers/
+__pycache__/
+*.py[cod]
+.git/
+_tmp_bind.json
+fetch_catalog.py
+fetch_covers.py
+make_icons.py
+build.js
+wrangler.toml
+upload_r2.py
+.cf-pages-covers
+.vercel

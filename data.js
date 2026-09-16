@@ -6,7 +6,8 @@ window.DIEFAN_DATA = {
   "name": "动漫集",
   "tagline": "动漫推荐、新番表与观看顺序",
   "email": "2201219073@qq.com",
-  "baseUrl": "https://www.anifundm.cn"
+  "baseUrl": "https://www.anifundm.cn",
+  "coverCdn": "https://anifundm-covers.pages.dev"
 },
   categories: [
   {
@@ -322,6 +323,62 @@ window.DIEFAN_DATA = {
     "name": "高达入门观看顺序",
     "keywords": "高达顺序,高达从哪部看,高达UC,机战",
     "desc": "高达入门观看顺序给出一条较短的入门线，不覆盖全部宇宙，适合第一次看高达。"
+  },
+  {
+    "id": "order-naruto",
+    "category": "order",
+    "name": "《火影忍者》观看顺序",
+    "keywords": "火影忍者顺序,火影从哪部看,疾风传,火影忍者观看顺序",
+    "desc": "《火影忍者》观看顺序从TV到疾风传，查火影从哪部看、疾风传怎么接。"
+  },
+  {
+    "id": "order-db",
+    "category": "order",
+    "name": "《龙珠》观看顺序",
+    "keywords": "龙珠顺序,龙珠从哪部看,龙珠Z,龙珠超",
+    "desc": "《龙珠》观看顺序按龙珠、龙珠Z到剧场版超布罗利排列，是一条入门线，不覆盖全部剧场版。"
+  },
+  {
+    "id": "order-monogatari",
+    "category": "order",
+    "name": "物语系列观看顺序",
+    "keywords": "物语系列顺序,化物语顺序,物语从哪部看,伤物语",
+    "desc": "物语系列观看顺序按放送顺序从化物语、伪物语到伤物语和续·终物语，查物语系列从哪部看。"
+  },
+  {
+    "id": "order-madoka",
+    "category": "order",
+    "name": "《魔法少女小圆》观看顺序",
+    "keywords": "魔法少女小圆顺序,小圆从哪部看,叛逆的物语,小圆剧场版",
+    "desc": "《魔法少女小圆》观看顺序从TV到剧场版叛逆的物语、瓦尔普吉斯的回天，查小圆从哪部看。"
+  },
+  {
+    "id": "order-rezero",
+    "category": "order",
+    "name": "《从零开始的异世界生活》观看顺序",
+    "keywords": "从零开始顺序,Re0顺序,从零从哪部看,Re0第三季",
+    "desc": "《从零开始的异世界生活》观看顺序按季和分篇排列，查Re：0从哪部看、第二季后半和第三季怎么接。"
+  },
+  {
+    "id": "order-mushoku",
+    "category": "order",
+    "name": "《无职转生》观看顺序",
+    "keywords": "无职转生顺序,无职转生从哪部看,无职转生第二季",
+    "desc": "《无职转生》观看顺序按第一季两部分、第二季和第三季排列，查无职转生从哪部看。"
+  },
+  {
+    "id": "order-bunny",
+    "category": "order",
+    "name": "《青春猪头少年》观看顺序",
+    "keywords": "青春猪头少年顺序,兔女郎学姐顺序,青春猪头从哪部看",
+    "desc": "《青春猪头少年》观看顺序从兔女郎学姐到剧场版和圣诞服女郎，查青春猪头少年从哪部看。"
+  },
+  {
+    "id": "order-fma",
+    "category": "order",
+    "name": "《钢之炼金术师》观看顺序",
+    "keywords": "钢炼顺序,钢之炼金术师从哪部看,FA,Brotherhood",
+    "desc": "《钢之炼金术师》观看顺序推荐先看 FULLMETAL ALCHEMIST，旧版TV和香巴拉是另一条线。"
   },
   {
     "id": "bangumi-top",
@@ -72772,6 +72829,63 @@ window.DIEFAN_DATA = {
     "b286",
     "b1010",
     "b3113"
+  ],
+  "order-naruto": [
+    "b3425",
+    "b2782"
+  ],
+  "order-db": [
+    "b9565",
+    "b9005",
+    "b240287"
+  ],
+  "order-monogatari": [
+    "b1671",
+    "b23161",
+    "b56117",
+    "b68812",
+    "b115932",
+    "b82322",
+    "b138829",
+    "b7707",
+    "b148036",
+    "b148037",
+    "b175596",
+    "b233926"
+  ],
+  "order-madoka": [
+    "b9717",
+    "b44693",
+    "b334105"
+  ],
+  "order-rezero": [
+    "b140001",
+    "b278826",
+    "b316247",
+    "b425998",
+    "b510728",
+    "b547888",
+    "b633836"
+  ],
+  "order-mushoku": [
+    "b277554",
+    "b325585",
+    "b373247",
+    "b444557",
+    "b501963"
+  ],
+  "order-bunny": [
+    "b240038",
+    "b260680",
+    "b402656",
+    "b426239",
+    "b467930",
+    "b589284"
+  ],
+  "order-fma": [
+    "b1428",
+    "b315",
+    "b1935"
   ],
   "jp-high": [
     "b876",

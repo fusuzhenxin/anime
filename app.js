@@ -23,6 +23,15 @@ function asset(path){
   const prefix = (typeof window !== 'undefined' && window.ASSET_PREFIX) || '';
   return `${prefix}${path}`;
 }
+function coverSrc(cover){
+  const c = String(cover || '');
+  if (!c) return '';
+  if (/^https?:\/\//i.test(c)) return c;
+  const site = (typeof DATA !== 'undefined' && DATA.site) || (typeof window !== 'undefined' && window.DIEFAN_DATA && window.DIEFAN_DATA.site) || {};
+  const cdn = String(site.coverCdn || '').replace(/\/$/, '');
+  if (cdn) return `${cdn}/${c.replace(/^\//, '')}`;
+  return asset(c);
+}
 function param(name){
   const search = (typeof location !== 'undefined' && location.search) || '';
   return new URLSearchParams(search).get(name);
@@ -37,7 +46,7 @@ function posterHtml(work, cls='poster'){
   const rate = esc(work.rate || '');
   const alt = esc(`${work.title}${work.year ? ' ' + work.year : ''} 动漫海报`);
   if (work.cover) {
-    return `<div class="${cls}"><img src="${esc(asset(work.cover))}" alt="${alt}" width="300" height="450" loading="lazy"><span class="poster-rate">${rate}</span></div>`;
+    return `<div class="${cls}"><img src="${esc(coverSrc(work.cover))}" alt="${alt}" width="300" height="450" loading="lazy"><span class="poster-rate">${rate}</span></div>`;
   }
   const i = hashHue(work.id) % PALETTES.length;
   const [c1, c2] = PALETTES[i];
@@ -105,7 +114,9 @@ function listSeoDesc(list){
   return padDesc(list.desc, extra);
 }
 function absUrl(pathFromRoot){
-  let path = String(pathFromRoot || '').replace(/^\//, '');
+  const raw = String(pathFromRoot || '');
+  if (/^https?:\/\//i.test(raw)) return raw;
+  let path = raw.replace(/^\//, '');
   if (path === 'index.html') path = '';
   const base = String((DATA.site && DATA.site.baseUrl) || '').replace(/\/$/, '');
   if (base) return path ? `${base}/${path}` : `${base}/`;
@@ -443,7 +454,7 @@ function homeHTML(){
     .sort((a,b) => (DATA.listCount[b.id]||0) - (DATA.listCount[a.id]||0) || rateNum(b) - rateNum(a)).slice(0, 8);
   const homeCats = DATA.categories.filter(c => c.id !== 'featured');
   const rows = homeCats.map(cat => {
-    const lists = DATA.lists.filter(l => l.category === cat.id).slice(0, 6);
+    const lists = DATA.lists.filter(l => l.category === cat.id).slice(0, 8);
     if (!lists.length) return '';
     return `<section><div class="sec-head"><h2 class="sec-title">${esc(cat.name)}</h2><a class="btn-sm" href="${catUrl(cat.id)}">更多</a></div>
       <div class="sec-row">${lists.map(listCard).join('')}</div></section>`;
@@ -465,7 +476,7 @@ function homeHTML(){
       <div class="season-side">
         <a class="mini" href="${asset('works.html')}"><b>全部作品</b><p>本地 ${DATA.works.length} 部按评分浏览，不用搜。</p></a>
         <a class="mini" href="${listUrl('jp-high')}"><b>高分日漫推荐</b><p>好看的日本动漫、必看日漫和经典番剧。</p></a>
-        <a class="mini" href="${catUrl('order')}"><b>动漫观看顺序</b><p>巨人、鬼灭、Fate、EVA 从哪部看。</p></a>
+        <a class="mini" href="${catUrl('order')}"><b>动漫观看顺序</b><p>火影、龙珠、物语、小圆、巨人从哪部看。</p></a>
         <a class="mini" href="${listUrl('cn-high')}"><b>高分国漫推荐</b><p>国产动漫与国漫电影对照。</p></a>
         <a class="mini" href="${listUrl('movie-high')}"><b>高分剧场版</b><p>动画电影、吉卜力与新海诚。</p></a>
       </div>
@@ -785,7 +796,7 @@ function detailJSONLD(work){
     alternateName: work.orig || undefined,
     datePublished: work.year ? String(work.year) : undefined,
     genre: work.tags,
-    image: work.cover ? absUrl(work.cover) : absUrl('icon-512.png'),
+    image: work.cover ? absUrl(coverSrc(work.cover)) : absUrl('icon-512.png'),
     director: work.director ? { '@type': 'Person', name: work.director } : undefined,
     productionCompany: work.studio ? { '@type': 'Organization', name: work.studio } : undefined,
     description: workSeoDesc(work)
@@ -835,11 +846,11 @@ function methodHTML(){
     <h1>交叉怎么算</h1>
     <p class="lead">动漫集是二次元动漫网站，把 ${DATA.works.length} 部作品做成动漫大全，用来查新番表、高分日漫、国漫和观看顺序，不提供在线播放。</p>
     <h2>能查哪些动漫推荐</h2>
-    <p>在这个动漫网站查<a href="${listUrl('year-2026')}">2026新番</a>、<a href="${listUrl('summer-2026')}">本季新番表</a>、<a href="${listUrl('jp-high')}">高分日漫推荐</a>、<a href="${listUrl('cn-high')}">国漫推荐</a>、<a href="${listUrl('movie-high')}">动画电影</a>和<a href="${catUrl('order')}">动漫观看顺序</a>。二次元热门还有<a href="${listUrl('isekai')}">异世界动漫</a>、<a href="${listUrl('shonen')}">热血动漫</a>、<a href="${listUrl('romance')}">恋爱动漫</a>、<a href="${listUrl('miyazaki')}">宫崎骏</a>、<a href="${listUrl('shinkai')}">新海诚</a>、<a href="${listUrl('ghibli')}">吉卜力</a>，以及进击的巨人、鬼灭之刃从哪部看。<a href="${asset('works.html')}">动漫大全</a>共 ${DATA.works.length} 部，按评分浏览好看的动漫和必看日漫，不提供在线播放。</p>
+    <p>在这个动漫网站查<a href="${listUrl('year-2026')}">2026新番</a>、<a href="${listUrl('summer-2026')}">本季新番表</a>、<a href="${listUrl('jp-high')}">高分日漫推荐</a>、<a href="${listUrl('cn-high')}">国漫推荐</a>、<a href="${listUrl('movie-high')}">动画电影</a>和<a href="${catUrl('order')}">动漫观看顺序</a>。二次元热门还有<a href="${listUrl('isekai')}">异世界动漫</a>、<a href="${listUrl('shonen')}">热血动漫</a>、<a href="${listUrl('romance')}">恋爱动漫</a>、<a href="${listUrl('miyazaki')}">宫崎骏</a>、<a href="${listUrl('shinkai')}">新海诚</a>、<a href="${listUrl('ghibli')}">吉卜力</a>，以及火影忍者、龙珠、物语系列、魔法少女小圆、从零开始从哪部看。<a href="${asset('works.html')}">动漫大全</a>共 ${DATA.works.length} 部，按评分浏览好看的动漫和必看日漫，不提供在线播放。</p>
     <h2>重叠怎么计</h2>
     <p>一部作品每进入一份名单，计数加一。出现在 3 份以上名单的作品目前有 ${nMulti} 部，会排在首页「交叉最多的作品」。名单页会写出只在这份名单出现的条目，以及重叠最多的邻单，方便从高分日漫走到观看顺序或工作室片单。</p>
     <h2>观看顺序</h2>
-    <p>只有归在观看顺序类的名单才提供上一跳和下一跳，例如进击的巨人、鬼灭之刃、Fate、EVA、JOJO 和高达入门线。顺序以该名单原有排列为准，用来回答「这部番从哪部看」。其它类型片单只做对照，不强制排序。</p>
+    <p>只有归在观看顺序类的名单才提供上一跳和下一跳，例如火影忍者、龙珠、物语系列、魔法少女小圆、从零开始、无职转生、进击的巨人、鬼灭之刃和 Fate。顺序以该名单原有排列为准，用来回答「这部番从哪部看」。其它类型片单只做对照，不强制排序。</p>
     <h2>不提供什么</h2>
     <p>没有播放器，没有片源，没有账号，没有下载。海报是本地下载的封面图。动漫集的页面用于动漫推荐、新番表查询和观看顺序对照，计算方式保持可复核，不冒充播放站。</p>
   </article></div>`;
@@ -888,7 +899,7 @@ if (typeof document !== 'undefined' && document.addEventListener) {
   else boot();
 }
 window.DieFan = {
-  DATA, SITE, listUrl, detailUrl, catUrl, homeUrl, asset, esc, absUrl, pageMetaDesc,
+  DATA, SITE, listUrl, detailUrl, catUrl, homeUrl, asset, coverSrc, esc, absUrl, pageMetaDesc,
   chromeNav, chromeFoot, homeHTML, hubHTML, listHTML, catalogHTML, detailHTML, methodHTML, aboutHTML,
   homeJSONLD, listJSONLD, catalogJSONLD, detailJSONLD, jsonLd, listSeoDesc, workSeoDesc, padDesc, zhLen
 };
