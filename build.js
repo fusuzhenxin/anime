@@ -86,7 +86,7 @@ function head(opts) {
   <meta name="twitter:image" content="${attr(ogImg)}">
   <meta name="msapplication-TileColor" content="#0e1320">
   <meta name="msapplication-TileImage" content="${A('icon-192.png')}">
-  <link rel="stylesheet" href="${A('styles.css')}?v=14"/>
+  <link rel="stylesheet" href="${A('styles.css')}?v=15"/>
   ${jsonld || ''}
 </head>`;
 }
@@ -100,7 +100,7 @@ function documentPage(opts) {
   <div id="foot" data-static="1">${opts.foot}</div>
   <script>window.PAGE=${JSON.stringify(page)};window.ASSET_PREFIX=${JSON.stringify(prefix)};</script>
   <script src="${prefix}data.js"></script>
-  <script src="${prefix}app.js?v=14"></script>
+  <script src="${prefix}app.js?v=15"></script>
 </body>
 </html>
 `;
