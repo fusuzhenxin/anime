@@ -1,0 +1,7 @@
+covers/_catalog_cache.json
+__pycache__/
+*.py[cod]
+.DS_Store
+Thumbs.db
+*.bak
+_tmp_bind.json

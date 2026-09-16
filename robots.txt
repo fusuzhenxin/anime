@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /fetch_covers.py
+Disallow: /fetch_catalog.py
+Disallow: /make_icons.py
+Disallow: /build.js
+Disallow: /list.html
+Disallow: /detail.html
+Disallow: /covers/_catalog_cache.json
+Disallow: /covers/_meta.json
+Sitemap: https://www.anifundm.cn/sitemap.xml
